@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+    {% block content %}
+        <h1 class="">Hi, {{ current_user.username }}!</h1>
+        {% if form %}
+        <div class="input-field">
+            <form action="" method="POST">
+                {{ form.hidden_tag() }}
+                <p>
+                    {{ form.post.label }} <br>
+                    {{ form.post(cols=32, rows=4) }} <br>
+                    {% for error in form.post.errors %}
+                    <span class="red-text">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <p>{{ form.submit(class_='btn white-text') }}</p>
+            </form>
+        </div>
+        {% endif %}
+        
+        {% for post in posts %}
+            {% include '_post.html' %}
+        {% endfor %}
+        {% if prev_url %}
+        <a href="{{ prev_url }}"><i class="material-icons">chevron_left</i></a>
+        {% endif %}
+        {% if next_url %}
+        <a href="{{ next_url }}"><i class="material-icons">chevron_right</i></a>
+        {% endif %}
+    {% endblock %}
